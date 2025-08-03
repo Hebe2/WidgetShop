@@ -1,0 +1,180 @@
+plugins {
+	id 'application'
+	id 'war'
+}
+
+application {
+	mainClass = "JettyServer" // web server
+	//mainClass = "ProductCatalogue" // Swing GUI
+}
+
+repositories {
+	mavenCentral()
+}
+
+test {
+	useJUnitPlatform();
+	
+	onlyIf { project.gradle.startParameter.taskNames.contains("test") }
+}
+
+dependencies {
+	implementation libs.guava;
+	implementation libs.oval;
+	testImplementation libs.junit.jupiter.api;
+	testRuntimeOnly libs.junit.jupiter.engine;
+	testImplementation libs.hamcrest;
+	testImplementation libs.mockito;
+	providedCompile libs.servlet.api;
+	implementation libs.bundles.jetty;	
+}
+
+// copy web application to where Jetty is looking for it
+tasks.register("deployWar", Sync) {
+	into "${projectDir}/deploy"
+	with war
+}
+
+// nobble the war task (since NetBeans uses it when you have a web app open),
+// and make it call the run task instead
+war {
+	onlyIf { false }
+	dependsOn run
+}
+
+// make run only run if we explicitly run it (or NetBeans runs war)
+run {
+	onlyIf {	project.gradle.startParameter.taskNames.intersect(["war","run"]) }
+	dependsOn deployWar
+}
+
+clean {
+	delete "${projectDir}/deploy"
+}
+
+/* convenience tasks for working with a project */
+
+tasks.register("createWebappSourceDir") {
+	group = "Project";
+	description = "Create the webapp source directory.";
+
+	def webapp = file("${projectDir}/src/main/webapp");
+
+	doFirst {
+		if(!webapp.isDirectory()) {
+			println "Creating source ${webapp}";
+			mkdir webapp;
+		} else {
+			println "${webapp} folder already exists.";
+		}
+	}
+}
+
+tasks.register("createMissingSourceDirs") {
+	group = "Project";
+	description = "Create all of the missing source directories for this project.";
+	doFirst {
+		sourceSets.each { def sourceRoot ->
+			sourceRoot.allSource.srcDirTrees.each { def sourceDir ->
+				if(!sourceDir.dir.exists()) {
+					println "Creating source ${sourceDir}";
+					mkdir sourceDir.dir;
+				}
+			}
+		}
+	}
+}
+
+tasks.register("deleteEmptySourceDirs") {
+	group = "Project";
+	description = "Delete empty source directories.";
+	doFirst {
+		sourceSets.each { def sourceRoot ->
+			sourceRoot.allSource.srcDirTrees.each { def sourceDir ->
+				if(sourceDir.dir.exists() && sourceDir.dir.isDirectory() && sourceDir.dir.list().length == 0) {
+					println "Removing empty source ${sourceDir}";
+					sourceDir.dir.delete();
+				}
+			}
+		}
+	}
+}
+
+tasks.register("openProjectDir") {
+	group = "Project";
+	description = "Open the project directory in the system file manager.";
+	doFirst {
+		println("Opening: " + file(projectDir));
+		java.awt.Desktop.getDesktop().open(file(projectDir));
+	}
+}
+
+tasks.register("openBuildDir") {
+	group = "Project";
+	description = "Open the project build directory in the system file manager.";
+	doFirst {
+		println("Opening: " + file(buildDir));
+		java.awt.Desktop.getDesktop().open(file(buildDir));
+	}
+}
+
+tasks.register("generateWrapper", Wrapper) {
+	group = "Project";
+	gradleVersion = "8.14.3";
+	distributionType = Wrapper.DistributionType.BIN;
+}
+
+tasks.register("createGitIgnore") {
+	group = "Project";
+	description = "Create the project's .gitignore file.";
+
+	def gitIgnored="""
+		.gradle/
+		.nb-gradle/
+		.settings/
+		nbproject/
+		build/
+		bin/
+		dist/
+		tmp/
+		.classpath
+		.project
+		*.zip
+		*.tgz
+		*.tar.gz
+		*.class
+		*.jar
+		.DS_Store
+		!gradle-wrapper.jar
+		""";
+
+	doLast {
+		def file = new File(projectDir, ".gitignore");
+		if ( !file.exists() ) {
+			println("Creating .gitignore");
+
+			gitIgnored.lines().each { f ->
+				if(!f.trim().isBlank()) {
+					file.append(f.trim()+"\n");
+				}
+			}
+
+		} else {
+			println(".gitignore already exists");
+		}
+	}
+}
+
+tasks.register("info") {
+	group = "Project";
+	description = "Show version and location information for Java, Gradle, and project.";
+	doLast {
+		println "Java Version: " + org.gradle.internal.jvm.Jvm.current();
+		println "Java Home: " + org.gradle.internal.jvm.Jvm.current().getJavaHome();
+		println "Gradle Version: ${gradle.gradleVersion}";
+		println "Gradle Home: ${gradle.gradleHomeDir}";
+		println "Gradle User Home: ${gradle.gradleUserHomeDir}";
+		println "Project Location: ${projectDir}";
+		println "Project Build Location: ${buildDir}";
+	}
+}

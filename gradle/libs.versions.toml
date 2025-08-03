@@ -1,0 +1,29 @@
+[versions]
+guava = "33.4.8-jre"
+junit = "5.13.4"
+hamcrest = "3.0"
+mockito = "5.18.0"
+servlet-api = "4.0.1"
+jetty = "10.0.25"
+oval = "3.2.1"
+
+
+[libraries]
+guava = { group = "com.google.guava", name = "guava", version.ref = "guava" }
+oval = { group = "net.sf.oval", name = "oval", version.ref = "oval" }
+
+junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit" }
+junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit" }
+
+hamcrest = { group = "org.hamcrest", name = "hamcrest", version.ref = "hamcrest" }
+mockito = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
+
+servlet-api = { group = "javax.servlet", name = "javax.servlet-api", version.ref = "servlet-api" }
+jetty-webapp = { group = "org.eclipse.jetty", name = "jetty-webapp", version.ref = "jetty" }
+jetty-annotations = { group = "org.eclipse.jetty", name = "jetty-annotations", version.ref = "jetty" }
+apache-jsp = { group= "org.eclipse.jetty", name= "apache-jsp", version.ref = "jetty" }
+jetty-slf4j-impl = { group = "org.eclipse.jetty", name = "jetty-slf4j-impl", version.ref = "jetty" }
+
+
+[bundles]
+jetty = ["jetty-webapp", "jetty-annotations", "apache-jsp", "jetty-slf4j-impl"]
