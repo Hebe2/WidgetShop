@@ -31,7 +31,7 @@ dependencies {
 
 // copy web application to where Jetty is looking for it
 tasks.register("deployWar", Sync) {
-	into "${projectDir}/deploy"
+	into "${buildDir}/deploy"
 	with war
 }
 
@@ -49,7 +49,7 @@ run {
 }
 
 clean {
-	delete "${projectDir}/deploy"
+	delete "${buildDir}/deploy"
 }
 
 /* convenience tasks for working with a project */
