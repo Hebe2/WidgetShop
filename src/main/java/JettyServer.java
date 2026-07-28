@@ -1,15 +1,9 @@
-import org.eclipse.jetty.annotations.AnnotationConfiguration;
-import org.eclipse.jetty.plus.webapp.EnvConfiguration;
-import org.eclipse.jetty.plus.webapp.PlusConfiguration;
+import java.nio.file.Path;
+import org.eclipse.jetty.ee8.webapp.Configuration;
+import org.eclipse.jetty.ee8.webapp.Configurations;
+import org.eclipse.jetty.ee8.webapp.WebAppContext;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.webapp.Configuration;
-import org.eclipse.jetty.webapp.FragmentConfiguration;
-import org.eclipse.jetty.webapp.MetaInfConfiguration;
-import org.eclipse.jetty.webapp.WebAppConfiguration;
-import org.eclipse.jetty.webapp.WebAppContext;
-import org.eclipse.jetty.webapp.WebInfConfiguration;
-import org.eclipse.jetty.webapp.WebXmlConfiguration;
 
 public class JettyServer {
 
@@ -26,20 +20,9 @@ public class JettyServer {
 
 		WebAppContext context = new WebAppContext();
 
-		context.setConfigurations(
-			 new Configuration[]{
-				 new AnnotationConfiguration(),
-				 new WebAppConfiguration(),
-				 new WebXmlConfiguration(),
-				 new WebInfConfiguration(),
-				 new PlusConfiguration(),
-				 new MetaInfConfiguration(),
-				 new FragmentConfiguration(),
-				 new EnvConfiguration()
-			 }
-		);
-
-		context.setResourceBase("build/deploy");
+                context.setConfigurations(Configurations.getServerDefault(server).toArray(new Configuration[0]));
+                
+                context.setBaseResource(context.getResourceFactory().newResource(Path.of("build/deploy")));
 		context.setContextPath(CONTEXT_PATH);
 		context.setParentLoaderPriority(true);
 		server.addConnector(connector);
@@ -47,7 +30,7 @@ public class JettyServer {
 
 		server.start();
 
-		System.out.println("\nMilestone 1 server ready on:\n" + server.getURI());
+		System.out.println("\nStudents System server ready on:\n\n" + server.getURI());
 
 		server.join();
 	}
