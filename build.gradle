@@ -16,10 +16,11 @@ repositories {
 
 test {
 	useJUnitPlatform();
-	
-	onlyIf {
-            project.gradle.startParameter.taskNames.contains("test")
-        }
+
+	// only run tests if we explicitly run the 'tests' task
+	onlyIf { 
+		requestedTasks.contains("test");
+	} 
 }
 
 dependencies {
@@ -27,6 +28,7 @@ dependencies {
 	implementation libs.oval;
 	testImplementation libs.junit.jupiter.api;
 	testRuntimeOnly libs.junit.jupiter.engine;
+	testRuntimeOnly libs.junit.platform.launcher;
 	testImplementation libs.hamcrest;
 	testImplementation libs.mockito;
 	providedCompile libs.servlet.api;

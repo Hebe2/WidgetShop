@@ -14,6 +14,7 @@ oval = { group = "net.sf.oval", name = "oval", version.ref = "oval" }
 
 junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit" }
 junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit" }
+junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junit" }
 
 hamcrest = { group = "org.hamcrest", name = "hamcrest", version.ref = "hamcrest" }
 mockito = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
