@@ -11,9 +11,40 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/layout.css">
         <link rel="stylesheet" href="css/style.css">
-        <title>JSP Page</title>
+        <title>Create Account Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <main>
+            <nav>
+                <a href= "index.jsp">Home</a>
+                <a href="sign-in.jsp">Sign-in</a>
+            </nav>
+            <div id="create-banner">
+                <h1>Create Account</h1>
+            </div>
+
+
+            <form action="create-account" method="POST">
+                <div id ="form-container">
+
+                    <fieldset id="account-details">
+
+                        <legend>Account Details</legend>
+
+                        <label>Username:</label><input type="text" name="username" required/>
+                        <label>First Name:</label><input type="text" name="first-name" required/>
+                        <label>Last Name:</label><input type="text" name="-name" required/>
+                        <label>Address:</label><textarea name="address" required></textarea>
+                        <label>Email:</label><input type="text" name="email" required/>
+                        <label>Password</label><input type="text" name="password" required/>
+
+                        <button type="submit">Create Account</button>
+                        
+                    </fieldset>
+                </div>
+            </form>
+            <button><a href="sign-in.jsp">Sign-in</button>
+        </main>
+
     </body>
 </html>

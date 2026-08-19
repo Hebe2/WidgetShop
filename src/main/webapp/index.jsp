@@ -8,16 +8,20 @@
         <title>Home Page</title>
     </head>
     <body>
-        <%@include file="WEB-INF/jspf/navigation.jspf"%>
-        <div id="home-banner">
-            <h1>Welcome to the Doohickies and widget shop</h1>
-        </div>
         <main>
+            <nav>
+                <a href= "create-account.jsp">Create Account</a>
+                <a href="sign-in.jsp">Sign-in</a>
+            </nav>
+            <div id="home-banner">
+                <h1>Welcome to the Doohickies and widget shop</h1>
+            </div>
+
             <div id="products-container">
                 <div class="product">
                     <h4 class="product-title">Product 1</h4>
                     <p class="product-description">hwieojdiw</p>
-                    <img src="images/widget.jpg" alt="Description of image">
+                    <img src="images/widget.jpeg" alt="Description of image">
                 </div>
                 <div class="product">
                     <h4 class="product-title">Product 2</h4>
@@ -36,7 +40,7 @@
                 </div>
             </div>
         </main>
-        
+
         <footer>
             <h3 class="footer-text"> we sell the largest range of widgets and doohickies</h3>
         </footer>

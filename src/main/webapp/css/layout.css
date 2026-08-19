@@ -27,3 +27,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .footer-text{
     text-align:center;
 }
+
+/*create account page*/
+#form-container{
+  min-width: 15rem;
+  max-width: 50rem;
+  margin-inline: auto;
+}
+#account-details{
+  display: grid;
+  gap: 0.5em;
+  grid-template-columns:fit-content(10em) 1fr;
+}
+
+#account-details legend,
+#account-details p{
+  grid-column: 1 / -1;
+}
