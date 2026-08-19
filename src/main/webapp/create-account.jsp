@@ -15,10 +15,7 @@
     </head>
     <body>
         <main>
-            <nav>
-                <a href= "index.jsp">Home</a>
-                <a href="sign-in.jsp">Sign-in</a>
-            </nav>
+            <%@include file="WEB-INF/jspf/navigation.jspf" %>
             <div id="create-banner">
                 <h1>Create Account</h1>
             </div>
@@ -30,13 +27,21 @@
                     <fieldset id="account-details">
 
                         <legend>Account Details</legend>
+                        <%
+                        String validation = (String)session.getAttribute("validation");
+                        validation = validation != null ? validation : "";
+                        session.removeAttribute("validation");
+   
+                        %>
+
+                        <p><%= validation %></p>
 
                         <label>Username:</label><input type="text" name="username" required/>
                         <label>First Name:</label><input type="text" name="first-name" required/>
                         <label>Last Name:</label><input type="text" name="-name" required/>
                         <label>Address:</label><textarea name="address" required></textarea>
                         <label>Email:</label><input type="text" name="email" required/>
-                        <label>Password</label><input type="text" name="password" required/>
+                        <label>Password</label><input type="password" name="password" required/>
 
                         <button type="submit">Create Account</button>
                         

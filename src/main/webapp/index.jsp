@@ -9,10 +9,7 @@
     </head>
     <body>
         <main>
-            <nav>
-                <a href= "create-account.jsp">Create Account</a>
-                <a href="sign-in.jsp">Sign-in</a>
-            </nav>
+            <%@include file="WEB-INF/jspf/navigation.jspf" %>
             <div id="home-banner">
                 <h1>Welcome to the Doohickies and widget shop</h1>
             </div>
