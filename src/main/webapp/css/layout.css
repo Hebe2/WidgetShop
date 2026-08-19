@@ -23,3 +23,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     border: black 2px solid;
     text-align: center;
 }
+
+.footer-text{
+    text-align:center;
+}

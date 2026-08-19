@@ -17,20 +17,28 @@
                 <div class="product">
                     <h4 class="product-title">Product 1</h4>
                     <p class="product-description">hwieojdiw</p>
+                    <img src="images/widget.jpg" alt="Description of image">
                 </div>
                 <div class="product">
                     <h4 class="product-title">Product 2</h4>
                     <p class="product-description">jiwel</p>
+                    <img src="path/to/image.png" alt="Description of image">
                 </div>
                 <div class="product">
                     <h4 class="product-title">Product 3</h4>
                     <p class="product-description">wnejdk</p>
+                    <img src="path/to/image.png" alt="Description of image">
                 </div>
                 <div class="product">
                     <h4 class="product-title">Product 4</h4>
                     <p class="product-description">ekwld</p>
+                    <img src="path/to/image.png" alt="Description of image">
                 </div>
             </div>
         </main>
+        
+        <footer>
+            <h3 class="footer-text"> we sell the largest range of widgets and doohickies</h3>
+        </footer>
     </body>
 </html>
